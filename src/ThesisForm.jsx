@@ -1,4 +1,3 @@
-```jsx
 import React, { useReducer } from "react";
 import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
@@ -103,7 +102,9 @@ function reducer(state, action) {
                   sec.id === action.sectionId
                     ? {
                         ...sec,
-                        subsections: sec.subsections.filter(sub => sub.id !== action.subsectionId),
+                        subsections: sec.subsections.filter(
+                          sub => sub.id !== action.subsectionId
+                        ),
                       }
                     : sec
                 ),
@@ -123,7 +124,9 @@ function reducer(state, action) {
                     ? {
                         ...sec,
                         subsections: sec.subsections.map(sub =>
-                          sub.id === action.subsectionId ? { ...sub, [action.field]: action.value } : sub
+                          sub.id === action.subsectionId
+                            ? { ...sub, [action.field]: action.value }
+                            : sub
                         ),
                       }
                     : sec
@@ -141,6 +144,7 @@ export default function ThesisForm() {
   const [form, dispatch] = useReducer(reducer, initialState);
 
   function renderLatex(f) {
+    // 以下所有 LaTeX 指令的「反斜線」都要用 \\ 逃脫
     let latex = `\\documentclass[12pt]{report}\n`;
     latex += "\\usepackage{CJKutf8}\n";
     latex += "\\begin{document}\n\\begin{CJK}{UTF8}{bsmi}\n";
@@ -175,7 +179,9 @@ export default function ThesisForm() {
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold mb-4">純文字轉 NCU 論文格式（LaTeX / docx）</h1>
+      <h1 className="text-3xl font-bold mb-4">
+        純文字轉 NCU 論文格式（LaTeX / docx）
+      </h1>
       <Card>
         <CardContent className="space-y-3 p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -183,42 +189,54 @@ export default function ThesisForm() {
               <label className="block mb-1">論文標題</label>
               <Input
                 value={form.title}
-                onChange={e => dispatch({ type: "setField", field: "title", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "title", value: e.target.value })
+                }
               />
             </div>
             <div>
               <label className="block mb-1">作者</label>
               <Input
                 value={form.author}
-                onChange={e => dispatch({ type: "setField", field: "author", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "author", value: e.target.value })
+                }
               />
             </div>
             <div>
               <label className="block mb-1">指導教授</label>
               <Input
                 value={form.advisor}
-                onChange={e => dispatch({ type: "setField", field: "advisor", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "advisor", value: e.target.value })
+                }
               />
             </div>
             <div>
               <label className="block mb-1">學校</label>
               <Input
                 value={form.university}
-                onChange={e => dispatch({ type: "setField", field: "university", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "university", value: e.target.value })
+                }
               />
             </div>
             <div>
               <label className="block mb-1">學年度</label>
               <Input
                 value={form.year}
-                onChange={e => dispatch({ type: "setField", field: "year", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "year", value: e.target.value })
+                }
               />
             </div>
             <div>
               <label className="block mb-1">學位／科系</label>
               <Input
                 value={form.department}
-                onChange={e => dispatch({ type: "setField", field: "department", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "department", value: e.target.value })
+                }
               />
             </div>
             <div className="md:col-span-2">
@@ -226,14 +244,20 @@ export default function ThesisForm() {
               <Textarea
                 rows={3}
                 value={form.abstract}
-                onChange={e => dispatch({ type: "setField", field: "abstract", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "abstract", value: e.target.value })
+                }
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block mb-1">關鍵字（用逗號分隔）</label>
+              <label className="block mb-1">
+                關鍵字（用逗號分隔）
+              </label>
               <Input
                 value={form.keywords}
-                onChange={e => dispatch({ type: "setField", field: "keywords", value: e.target.value })}
+                onChange={e =>
+                  dispatch({ type: "setField", field: "keywords", value: e.target.value })
+                }
               />
             </div>
           </div>
@@ -244,14 +268,34 @@ export default function ThesisForm() {
                 key={ch.id}
                 chapter={ch}
                 index={cidx}
-                onChangeTitle={val => dispatch({ type: "setChapterField", id: ch.id, field: "title", value: val })}
-                onAddSection={() => dispatch({ type: "addSection", chapterId: ch.id })}
-                onRemove={() => dispatch({ type: "removeChapter", id: ch.id })}
-                onUpdateSection={(secId, field, val) =>
-                  dispatch({ type: "setSectionField", chapterId: ch.id, sectionId: secId, field, value: val })
+                onChangeTitle={val =>
+                  dispatch({ type: "setChapterField", id: ch.id, field: "title", value: val })
                 }
-                onRemoveSection={secId => dispatch({ type: "removeSection", chapterId: ch.id, sectionId: secId })}
-                onAddSubsection={secId => dispatch({ type: "addSubsection", chapterId: ch.id, sectionId: secId })}
+                onAddSection={() =>
+                  dispatch({ type: "addSection", chapterId: ch.id })
+                }
+                onRemove={() =>
+                  dispatch({ type: "removeChapter", id: ch.id })
+                }
+                onUpdateSection={(secId, field, val) =>
+                  dispatch({
+                    type: "setSectionField",
+                    chapterId: ch.id,
+                    sectionId: secId,
+                    field,
+                    value: val,
+                  })
+                }
+                onRemoveSection={secId =>
+                  dispatch({ type: "removeSection", chapterId: ch.id, sectionId: secId })
+                }
+                onAddSubsection={secId =>
+                  dispatch({
+                    type: "addSubsection",
+                    chapterId: ch.id,
+                    sectionId: secId,
+                  })
+                }
                 onUpdateSubsection={(secId, subId, field, val) =>
                   dispatch({
                     type: "setSubsectionField",
@@ -263,20 +307,33 @@ export default function ThesisForm() {
                   })
                 }
                 onRemoveSubsection={(secId, subId) =>
-                  dispatch({ type: "removeSubsection", chapterId: ch.id, sectionId: secId, subsectionId: subId })
+                  dispatch({
+                    type: "removeSubsection",
+                    chapterId: ch.id,
+                    sectionId: secId,
+                    subsectionId: subId,
+                  })
                 }
               />
             ))}
-            <Button variant="default" onClick={() => dispatch({ type: "addChapter" })} className="mt-2">
+            <Button
+              variant="default"
+              onClick={() => dispatch({ type: "addChapter" })}
+              className="mt-2"
+            >
               新增章節
             </Button>
           </div>
           <div>
-            <h2 className="text-xl mt-2 mb-1 font-bold">參考文獻</h2>
+            <h2 className="text-xl mt-2 mb-1 font-bold">
+              參考文獻
+            </h2>
             <Textarea
               rows={3}
               value={form.bibliography}
-              onChange={e => dispatch({ type: "setField", field: "bibliography", value: e.target.value })}
+              onChange={e =>
+                dispatch({ type: "setField", field: "bibliography", value: e.target.value })
+              }
               placeholder="每行一條文獻"
             />
           </div>
@@ -284,7 +341,9 @@ export default function ThesisForm() {
       </Card>
       <div className="bg-gray-900 rounded-xl text-white mt-4 p-4">
         <h2 className="text-lg font-bold mb-2">LaTeX 預覽</h2>
-        <pre className="overflow-auto whitespace-pre-wrap text-xs">{renderLatex(form)}</pre>
+        <pre className="overflow-auto whitespace-pre-wrap text-xs">
+          {renderLatex(form)}
+        </pre>
       </div>
       <div className="flex gap-3 justify-end">
         <Button
@@ -300,9 +359,10 @@ export default function ThesisForm() {
         >
           下載 .tex
         </Button>
-        <Button onClick={() => generateDocx(form)}>下載 .docx</Button>
+        <Button onClick={() => generateDocx(form)}>
+          下載 .docx
+        </Button>
       </div>
     </div>
   );
 }
-```
