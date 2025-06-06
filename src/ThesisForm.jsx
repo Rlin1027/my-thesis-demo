@@ -1,3 +1,4 @@
+```jsx
 import React, { useReducer } from "react";
 import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
@@ -179,36 +180,61 @@ export default function ThesisForm() {
         <CardContent className="space-y-3 p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label>論文標題</label>
-              <Input value={form.title} onChange={e => dispatch({ type: "setField", field: "title", value: e.target.value })} />
+              <label className="block mb-1">論文標題</label>
+              <Input
+                value={form.title}
+                onChange={e => dispatch({ type: "setField", field: "title", value: e.target.value })}
+              />
             </div>
             <div>
-              <label>作者</label>
-              <Input value={form.author} onChange={e => dispatch({ type: "setField", field: "author", value: e.target.value })} />
+              <label className="block mb-1">作者</label>
+              <Input
+                value={form.author}
+                onChange={e => dispatch({ type: "setField", field: "author", value: e.target.value })}
+              />
             </div>
             <div>
-              <label>指導教授</label>
-              <Input value={form.advisor} onChange={e => dispatch({ type: "setField", field: "advisor", value: e.target.value })} />
+              <label className="block mb-1">指導教授</label>
+              <Input
+                value={form.advisor}
+                onChange={e => dispatch({ type: "setField", field: "advisor", value: e.target.value })}
+              />
             </div>
             <div>
-              <label>學校</label>
-              <Input value={form.university} onChange={e => dispatch({ type: "setField", field: "university", value: e.target.value })} />
+              <label className="block mb-1">學校</label>
+              <Input
+                value={form.university}
+                onChange={e => dispatch({ type: "setField", field: "university", value: e.target.value })}
+              />
             </div>
             <div>
-              <label>學年度</label>
-              <Input value={form.year} onChange={e => dispatch({ type: "setField", field: "year", value: e.target.value })} />
+              <label className="block mb-1">學年度</label>
+              <Input
+                value={form.year}
+                onChange={e => dispatch({ type: "setField", field: "year", value: e.target.value })}
+              />
             </div>
             <div>
-              <label>學位／科系</label>
-              <Input value={form.department} onChange={e => dispatch({ type: "setField", field: "department", value: e.target.value })} />
+              <label className="block mb-1">學位／科系</label>
+              <Input
+                value={form.department}
+                onChange={e => dispatch({ type: "setField", field: "department", value: e.target.value })}
+              />
             </div>
             <div className="md:col-span-2">
-              <label>摘要</label>
-              <Textarea rows={3} value={form.abstract} onChange={e => dispatch({ type: "setField", field: "abstract", value: e.target.value })} />
+              <label className="block mb-1">摘要</label>
+              <Textarea
+                rows={3}
+                value={form.abstract}
+                onChange={e => dispatch({ type: "setField", field: "abstract", value: e.target.value })}
+              />
             </div>
             <div className="md:col-span-2">
-              <label>關鍵字（用逗號分隔）</label>
-              <Input value={form.keywords} onChange={e => dispatch({ type: "setField", field: "keywords", value: e.target.value })} />
+              <label className="block mb-1">關鍵字（用逗號分隔）</label>
+              <Input
+                value={form.keywords}
+                onChange={e => dispatch({ type: "setField", field: "keywords", value: e.target.value })}
+              />
             </div>
           </div>
           <div>
@@ -221,11 +247,24 @@ export default function ThesisForm() {
                 onChangeTitle={val => dispatch({ type: "setChapterField", id: ch.id, field: "title", value: val })}
                 onAddSection={() => dispatch({ type: "addSection", chapterId: ch.id })}
                 onRemove={() => dispatch({ type: "removeChapter", id: ch.id })}
-                onUpdateSection={(secId, field, val) => dispatch({ type: "setSectionField", chapterId: ch.id, sectionId: secId, field, value: val })}
+                onUpdateSection={(secId, field, val) =>
+                  dispatch({ type: "setSectionField", chapterId: ch.id, sectionId: secId, field, value: val })
+                }
                 onRemoveSection={secId => dispatch({ type: "removeSection", chapterId: ch.id, sectionId: secId })}
                 onAddSubsection={secId => dispatch({ type: "addSubsection", chapterId: ch.id, sectionId: secId })}
-                onUpdateSubsection={(secId, subId, field, val) => dispatch({ type: "setSubsectionField", chapterId: ch.id, sectionId: secId, subsectionId: subId, field, value: val })}
-                onRemoveSubsection={(secId, subId) => dispatch({ type: "removeSubsection", chapterId: ch.id, sectionId: secId, subsectionId: subId })}
+                onUpdateSubsection={(secId, subId, field, val) =>
+                  dispatch({
+                    type: "setSubsectionField",
+                    chapterId: ch.id,
+                    sectionId: secId,
+                    subsectionId: subId,
+                    field,
+                    value: val,
+                  })
+                }
+                onRemoveSubsection={(secId, subId) =>
+                  dispatch({ type: "removeSubsection", chapterId: ch.id, sectionId: secId, subsectionId: subId })
+                }
               />
             ))}
             <Button variant="default" onClick={() => dispatch({ type: "addChapter" })} className="mt-2">
@@ -266,3 +305,4 @@ export default function ThesisForm() {
     </div>
   );
 }
+```
